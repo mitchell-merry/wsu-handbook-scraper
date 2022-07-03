@@ -4,6 +4,10 @@ Scrape data from Western Sydney University's subject handbook.
 
 Specifically, this script will pull down all the subjects currently listed in their handbook. To see the shape of this output, check `src/types.ts`.
 
+Uses:
+- TypeScript
+- Puppeteer to run a headless Chrome browser for web scraping.
+
 ## Running
 WORKING AS OF 3/7/2022 (DD/MM/YYYY). Their website may change & break this.
 
