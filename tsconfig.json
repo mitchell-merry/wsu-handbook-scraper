@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "es2017",
+		"lib": ["es2019", "dom"],
+        "moduleResolution": "node",
+        "strict": true,
+        
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+
+        "declaration": true,
+        "outDir": "./dist"
+    }
+}

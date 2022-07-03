@@ -1,0 +1,6 @@
+# compiled typescript and relevant npm packages
+dist/
+node_modules/
+
+# Data is saved to DATA_subjects.json on root
+DATA_*.json
