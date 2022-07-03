@@ -4,7 +4,7 @@ import path from 'path';
 
 async function fetchSubjectDescriptions() {
 	// as of 03/07/2022 DD/MM/YYYY
-	const BASE = 'https://hbook.westernsydney.edu.au/';
+	const BASE = 'https://hbook.westernsydney.edu.au';
 	const URL = 'https://hbook.westernsydney.edu.au/subject-descriptions/';
 
 	const browser = await puppeteer.launch();
