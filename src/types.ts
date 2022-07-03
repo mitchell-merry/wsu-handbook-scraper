@@ -22,4 +22,19 @@ interface Subject {
 	details_link: string;
 }
 
-// DATA_subjects.json will have the form SubjectDescription[]. subjects will be set for each description.
+interface Dataset<T> {
+	/** Object containing metadata relevant to the dataset. */
+	metadata: Metadata;
+	/** Actual data. */
+	data: T;
+}
+
+/** Metadata relevant to a certain dataset. */
+interface Metadata {
+	/** Time in ISO 8601 format when this dataset was generated. */
+	timestamp: string;
+	/** Brief description about the contents of the dataset */
+	contains: string;
+}
+
+// DATA_subjects.json will be a Dataset<SubjectDescription[]>.
