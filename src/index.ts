@@ -1,15 +1,20 @@
 import * as puppeteer from "puppeteer";
 import fs from 'fs';
 import path from 'path';
+import { runFormatter } from "./format";
 
 async function fetchSubjectDescriptions() {
 	// as of 03/07/2022 DD/MM/YYYY
 	const BASE = 'https://hbook.westernsydney.edu.au';
 	const URL = 'https://hbook.westernsydney.edu.au/subject-descriptions/';
 
+	console.log("Opening browser...");
 	const browser = await puppeteer.launch();
+	console.log("Opening page...");
 	const page = await browser.newPage();
-	await page.goto(URL);
+	console.log(`Going to ${URL}...`);
+	await page.goto(URL, { timeout: 180000 });
+	console.log("Went.");
 
 	// Get base information on each Subject Description by scraping that page (URL)
 	const descriptions = await page.evaluate(URL => Array.from(
@@ -30,7 +35,9 @@ async function fetchSubjectDescriptions() {
 	// Scrape each description's page to get all their respective units
 	await Promise.all(descriptions.map(async description => {
 		const descPage = await browser.newPage();
-		await descPage.goto(description.link);
+		console.log(`Going to... ${description.link}`);
+		await descPage.goto(description.link, { timeout: 180000 });
+		console.log(`Went to ${description.link}.`);
 
 		description.subjects = await descPage.evaluate(BASE => Array.from(
 			document.querySelectorAll('div.courseblock')
@@ -56,7 +63,12 @@ async function fetchSubjectDescriptions() {
 	};
 
 	// Save data
-	fs.writeFileSync(`${path.resolve(__dirname, '..')}\\DATA_subjects.json`, JSON.stringify(dataset, null, 2));
+	fs.writeFileSync(
+		path.join(process.cwd(), "output", "DATA_subjects.json"),
+		JSON.stringify(dataset, null, 2)
+	);
+
+	runFormatter(dataset);
 
 	await browser.close();
 }
